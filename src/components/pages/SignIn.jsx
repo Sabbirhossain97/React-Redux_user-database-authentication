@@ -3,14 +3,14 @@ import { FcGoogle } from "react-icons/fc";
 import { RiAppleFill } from "react-icons/ri";
 import { AiFillLock } from "react-icons/ai";
 import { MdOutlineAlternateEmail } from "react-icons/md";
-
 import { BsStack } from "react-icons/bs";
+import { Link } from "react-router-dom";
 export default function SignIn() {
   return (
     <div className="">
       <div className="flex justify-between">
         <div className="flex flex-row text-3xl mt-8 ml-16">
-          <BsStack  className="text-blue-500 mt-1"/>
+          <BsStack className="text-blue-500 mt-1" />
           <p className="text-slate-500 font-bold ml-2">Stack</p>
         </div>
         <div className="mr-16">
@@ -26,16 +26,15 @@ export default function SignIn() {
           >
             <option selected>English (UK)</option>
             <option value="US">Bengali</option>
-            
           </select>
         </div>
       </div>
-      <div className=" mx-auto h-screen w-full flex justify-center items-center flex-col">
+      <div className="mt-12 mx-auto h-full w-full flex justify-center items-center flex-col">
         <div>
           <div className="text-center py-8 ">
             <h1 className="text-3xl font-bold">Sign in</h1>
             <h3 className="text-xl font-normal text-slate-400 mt-4">
-              Welcome back,you've been missed!
+              Welcome back, you've been missed!
             </h3>
           </div>
           <div className="px-2 flex flex-row">
@@ -63,7 +62,7 @@ export default function SignIn() {
             </div>
           </div>
           {/* input sections */}
-          <div className="flex flex-col">
+          <div className="flex flex-col mt-4">
             <div class="relative mb-6">
               <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                 <MdOutlineAlternateEmail className="text-slate-500 text-xl" />
@@ -89,11 +88,11 @@ export default function SignIn() {
                 disabled
                 type="checkbox"
                 value=""
-                className="w-8 h-8 text-blue-600 bg-slate-200 border-slate-200 rounded-xl focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 "
+                className="w-7 h-7 text-blue-600 bg-slate-200 border-slate-200 rounded-lg focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 "
               />
               <label
                 for="disabled-checkbox"
-                className="ml-2 text-lg font-medium text-slate-400 "
+                className="ml-2 text-lg font-normal text-slate-400 "
               >
                 Remember Me
               </label>
@@ -108,7 +107,9 @@ export default function SignIn() {
                 <span className="text-slate-400">
                   Don't have an account yet?
                 </span>{" "}
-                <span className="text-blue-500">Sign Up</span>
+                <Link to="/signup">
+                  <span className="text-blue-500 font-semibold">Sign Up</span>
+                </Link>
               </p>
             </div>
           </div>
