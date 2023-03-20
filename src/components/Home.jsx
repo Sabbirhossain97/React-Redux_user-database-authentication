@@ -9,7 +9,7 @@ export default function Home() {
       <Routes>
         <Route path="/" exact element={<SignIn/>}> </Route>
         <Route path="/signup" exact element={<SignUp/>}></Route>
-        <Route></Route>
+        <Route path="/users" exact element={<Users/>}></Route>
         <Route></Route>
       </Routes>
     </Router>
