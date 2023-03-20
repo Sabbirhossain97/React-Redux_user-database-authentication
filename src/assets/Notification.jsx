@@ -9,7 +9,7 @@ export default function Notification() {
       viewBox="0 0 25 25"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="w-[25px] h-[25px] absolute left-[1290px] top-[38px]"
+      className=""
       preserveAspectRatio="none"
     >
       <path

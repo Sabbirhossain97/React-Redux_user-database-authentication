@@ -8,7 +8,7 @@ export default function PasswordIcon() {
       viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="w-5 h-5 absolute left-[469px] top-[563px]"
+      className=""
       preserveAspectRatio="none"
     >
       <path

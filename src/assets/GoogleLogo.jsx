@@ -8,7 +8,7 @@ export default function GoogleLogo() {
       viewBox="0 0 25 25"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="w-[25px] h-[25px] absolute left-[478px] top-[312px]"
+      className=""
       preserveAspectRatio="none"
     >
       <path

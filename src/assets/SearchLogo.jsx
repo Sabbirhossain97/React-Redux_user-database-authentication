@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 export default function SearchLogo() {
   return (
@@ -8,7 +8,7 @@ export default function SearchLogo() {
       viewBox="0 0 17 17"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="w-[17px] h-[17px] absolute left-[785px] top-[41px]"
+      className="absolute right-4 top-5 "
       preserveAspectRatio="none"
     >
       <g clip-path="url(#clip0_20_270)">
@@ -29,5 +29,3 @@ export default function SearchLogo() {
     </svg>
   );
 }
-
- 
