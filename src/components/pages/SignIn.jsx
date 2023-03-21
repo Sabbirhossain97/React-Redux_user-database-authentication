@@ -1,26 +1,36 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import AppleLogo from "../../assets/AppleLogo";
 import EmailLogo from "../../assets/EmailLogo";
 import GoogleLogo from "../../assets/GoogleLogo";
 import Logo from "../../assets/Logo";
+import VisibleLogo from "../../assets/VisibleLogo";
+import { MdVisibilityOff } from "react-icons/md";
 import PasswordIcon from "../../assets/PasswordIcon";
-import { registerUser } from "../../redux/reducers/auth";
+import { loginUser } from "../../redux/reducers/auth";
+import { useNavigate } from "react-router-dom";
 
 export default function SignIn() {
-  const dispatch= useDispatch()
+  let navigate = useNavigate();
+  const dispatch = useDispatch();
+  const isAuth = useSelector((state) => state.user.isAuthenticated);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [visibility, setVisibility] = useState(false);
+
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(email, password);
+    dispatch(loginUser({ email, password }));
+    if(isAuth){
+      navigate("/users")
+    } else {
+      redirect("/")
+    }
   }
 
-  useEffect(()=> {
-    dispatch(registerUser());
-  },[])
 
+ 
   return (
     <div className="">
       <div className="flex justify-between">
@@ -39,7 +49,6 @@ export default function SignIn() {
           </label>
           <select
             id="languages"
-            
             className="bg-slate-100 border-slate-100 text-slate-500 text-sm rounded-lg focus:border-blue-500 block w-[130px] p-4  placeholder-slate-500 dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
             <option defaultValue="English">English (UK)</option>
@@ -82,17 +91,17 @@ export default function SignIn() {
             </div>
           </div>
           {/* input sections */}
-          <form onSubmit={handleSubmit}>
+          <form>
             <div className="flex flex-col">
               <div className="relative mb-6">
                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                   <EmailLogo />
                 </div>
                 <input
-                  type="text"
+                  type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="placeholder:text-[#b0b7c3] text-base font-medium text-left text-[#b0b7c3]  focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-5 rounded-2xl bg-white border border-[#ff5630]"
+                  className="placeholder:text-[#b0b7c3] text-base font-medium text-left text-[#b0b7c3]  focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-5 rounded-2xl bg-white border border-[#f3f3f3]"
                   placeholder="Your Email"
                   required
                 />
@@ -102,19 +111,24 @@ export default function SignIn() {
                   <PasswordIcon />
                 </div>
                 <input
-                  type="text"
+                  type={visibility ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="placeholder:text-[#b0b7c3] text-base font-medium text-left text-[#b0b7c3] focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-5 rounded-2xl bg-white border border-[#f3f3f3]"
                   placeholder="Password"
                   required
                 />
-                {/* <VisibleLogo className="absolute" /> */}
+                <span onClick={() => setVisibility(!visibility)}>
+                  {visibility ? (
+                    <VisibleLogo />
+                  ) : (
+                    <MdVisibilityOff className="absolute right-4 top-6 cursor-pointer text-[#b0b7c3] h-[20px] w-[20px]" />
+                  )}
+                </span>
               </div>
 
               <div className="flex items-center mb-4 ">
                 <input
-                  disabled
                   type="checkbox"
                   value=""
                   className="w-8 h-8 text-blue-600 bg-slate-200 border-slate-200 rounded-xl focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 "
@@ -127,7 +141,7 @@ export default function SignIn() {
                 </label>
               </div>
               <div className="mt-4">
-                <button className="w-full p-5 bg-blue-500 rounded-2xl">
+                <button onClick={handleSubmit} className="w-full p-5 bg-blue-500 rounded-2xl hover:bg-blue-600">
                   <p className=" font-medium text-center text-white">Sign In</p>
                 </button>
               </div>

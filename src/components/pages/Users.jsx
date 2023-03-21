@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DashboardLogo from "../../assets/DashboardLogo";
 import Logo from "../../assets/Logo";
 import SearchLogo from "../../assets/SearchLogo";
@@ -11,20 +11,25 @@ import DoubleArrow2 from "../../assets/DoubleArrow2";
 import SalesLogo from "../../assets/SalesLogo";
 import OptionsLogo from "../../assets/OptionsLogo";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function Users() {
-// const response = axios
-//   .post("http://localhost:3000/users/register", {
-//     email: "sabbirhossainbd199@gmail.com",
-//     password: "1234",
-//   })
-//   .then((res) => console.log(res.data));
-//       console.log(response)      
+  const [itemsPerPage] = useState(3);
+  const getUserData = async () => {
+    const response = await axios.get(
+      `https://reqres.in/api/users?per_page=${itemsPerPage}`
+    );
+    console.log(response.data.data)
+    return response.data.data;
+  };
+  useEffect(()=> {
+    getUserData();
+  },[])
   return (
     <div>
-      <div className="w-full min-h-screen bg-white flex flex-row">
+      <div className="w-full max-h-screen bg-white flex flex-row ">
         {/* section 1 */}
-        <div className="w-1/4 max-h-full  ">
+        <div className="w-1/4  ">
           <div className="flex flex-col justify-center items-center ">
             <div className="ml-10 mt-10 flex flex-row ">
               <Logo />
@@ -32,22 +37,26 @@ export default function Users() {
                 Stack
               </p>
             </div>
-            <div className=" mt-10">
-              <h2 className="font-medium text-left text-[#b0b7c3]">PAGES</h2>
-              <div className="flex flex-col mt-4">
-                <div className="py-5 flex flex-row">
-                  <DashboardLogo />
-                  <p className="ml-4 text-sm font-medium text-left text-[#a7afbc]">
-                    Dashboard
-                  </p>
-                </div>
-                <div className="py-5 flex flex-row">
+            <div className="px-5 mt-10">
+              <h2 className="px-5 font-medium text-left text-[#b0b7c3]">
+                PAGES
+              </h2>
+              <div className=" flex flex-col mt-4">
+                <Link to="/dashboard">
+                  <div className="py-5 px-5 flex flex-row hover:bg-gray-200 rounded-lg cursor-pointer">
+                    <DashboardLogo />
+                    <p className="ml-4 text-sm font-medium text-left text-[#a7afbc]">
+                      Dashboard
+                    </p>
+                  </div>
+                </Link>
+                <div className="px-5 py-5 flex flex-row hover:bg-gray-200 rounded-lg cursor-pointer">
                   <UsersLogo />{" "}
                   <p className="ml-4 text-sm font-medium text-left text-[#a7afbc]">
                     Users
                   </p>
                 </div>
-                <div className="py-5 flex flex-row">
+                <div className="px-5 py-5 flex flex-row hover:bg-gray-200 rounded-lg cursor-pointer">
                   <SalesLogo />
                   <p className="ml-4 text-sm font-medium text-left text-[#a7afbc]">
                     Sales
@@ -57,8 +66,9 @@ export default function Users() {
             </div>
           </div>
         </div>
+        <div className="w-[1px] bg-gray-200"></div>
         {/* section 2 */}
-        <div className="w-full max-h-full  ">
+        <div className="relative w-full max-h-screen  ">
           <div className="flex flex-row h-32 justify-between">
             <div className="relative w-2/5 ml-16 h-16 mt-8">
               <input
@@ -77,7 +87,7 @@ export default function Users() {
               />
             </div>
           </div>
-          <div className="relative h-full ">
+          <div className="relative h-screen ">
             <div className="relative ml-16 ">
               <p className="text-[23px] font-semibold text-left text-[#323b4b]">
                 Users List
@@ -118,47 +128,45 @@ export default function Users() {
                   <OptionsLogo />
                 </div>
               </div>
-
-              {/* pagination */}
             </div>
-            <div className="absolute bottom-16 ml-16 flex justify-start items-start gap-[5px]">
-              <div className="flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-8 w-8 relative gap-2.5 p-2.5 rounded-lg bg-white border border-[#f1f1f1]">
-                <DoubleArrow1 />
-              </div>
-              <div className="flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-8 w-8 relative gap-2.5 p-2.5 rounded-lg bg-white border border-[#f1f1f1]">
-                <SingleArrow1 />
-              </div>
-              <div className="flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-8 w-8 relative gap-2.5 p-2.5 rounded-lg bg-[#2f80ed]">
-                <p className="flex-grow-0 flex-shrink-0 text-[13px] font-semibold text-left text-white">
-                  1
-                </p>
-              </div>
-              <div className="flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-8 w-8 relative gap-2.5 p-2.5 rounded-lg bg-white border border-[#f1f1f1]">
-                <p className="flex-grow-0 flex-shrink-0 text-[13px] font-semibold text-left text-[#333]">
-                  2
-                </p>
-              </div>
-              <div className="flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-8 w-8 relative gap-2.5 p-2.5 rounded-lg bg-white border border-[#f1f1f1]">
-                <p className="flex-grow-0 flex-shrink-0 text-[13px] font-semibold text-left text-[#333]">
-                  3
-                </p>
-              </div>
-              <div className="flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-8 w-8 relative gap-2.5 p-2.5 rounded-lg bg-white">
-                <p className="flex-grow-0 flex-shrink-0 text-[13px] font-semibold text-left text-[#333]">
-                  ...
-                </p>
-              </div>
-              <div className="flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-8 w-8 relative gap-2.5 p-2.5 rounded-lg bg-white border border-[#f1f1f1]">
-                <p className="flex-grow-0 flex-shrink-0 text-[13px] font-semibold text-left text-[#333]">
-                  10
-                </p>
-              </div>
-              <div className="flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-8 w-8 relative gap-2.5 p-2.5 rounded-lg bg-white border border-[#f1f1f1]">
-                <SingleArrow2 />
-              </div>
-              <div className="flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-8 w-8 relative gap-2.5 p-2.5 rounded-lg bg-white border border-[#f1f1f1]">
-                <DoubleArrow2 />
-              </div>
+          </div>
+          <div className="absolute bottom-16 ml-16 flex justify-start items-start gap-[5px]">
+            <div className="flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-8 w-8 relative gap-2.5 p-2.5 rounded-lg bg-white border border-[#f1f1f1]">
+              <DoubleArrow1 />
+            </div>
+            <div className="flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-8 w-8 relative gap-2.5 p-2.5 rounded-lg bg-white border border-[#f1f1f1]">
+              <SingleArrow1 />
+            </div>
+            <div className="flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-8 w-8 relative gap-2.5 p-2.5 rounded-lg bg-[#2f80ed]">
+              <p className="flex-grow-0 flex-shrink-0 text-[13px] font-semibold text-left text-white">
+                1
+              </p>
+            </div>
+            <div className="flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-8 w-8 relative gap-2.5 p-2.5 rounded-lg bg-white border border-[#f1f1f1]">
+              <p className="flex-grow-0 flex-shrink-0 text-[13px] font-semibold text-left text-[#333]">
+                2
+              </p>
+            </div>
+            <div className="flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-8 w-8 relative gap-2.5 p-2.5 rounded-lg bg-white border border-[#f1f1f1]">
+              <p className="flex-grow-0 flex-shrink-0 text-[13px] font-semibold text-left text-[#333]">
+                3
+              </p>
+            </div>
+            <div className="flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-8 w-8 relative gap-2.5 p-2.5 rounded-lg bg-white">
+              <p className="flex-grow-0 flex-shrink-0 text-[13px] font-semibold text-left text-[#333]">
+                ...
+              </p>
+            </div>
+            <div className="flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-8 w-8 relative gap-2.5 p-2.5 rounded-lg bg-white border border-[#f1f1f1]">
+              <p className="flex-grow-0 flex-shrink-0 text-[13px] font-semibold text-left text-[#333]">
+                10
+              </p>
+            </div>
+            <div className="flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-8 w-8 relative gap-2.5 p-2.5 rounded-lg bg-white border border-[#f1f1f1]">
+              <SingleArrow2 />
+            </div>
+            <div className="flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-8 w-8 relative gap-2.5 p-2.5 rounded-lg bg-white border border-[#f1f1f1]">
+              <DoubleArrow2 />
             </div>
           </div>
         </div>

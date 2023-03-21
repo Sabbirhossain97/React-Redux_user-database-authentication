@@ -8,7 +8,8 @@ export default function VisibleLogo() {
       viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="w-5 h-5 absolute left-[945px] top-[563px]"
+      className="absolute right-4 top-6 cursor-pointer"
+     
       preserveAspectRatio="xMidYMid meet"
     >
       <g clipPath="url(#clip0_16_172)">
