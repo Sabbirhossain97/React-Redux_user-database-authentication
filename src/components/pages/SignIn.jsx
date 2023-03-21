@@ -1,12 +1,26 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import AppleLogo from "../../assets/AppleLogo";
 import EmailLogo from "../../assets/EmailLogo";
 import GoogleLogo from "../../assets/GoogleLogo";
 import Logo from "../../assets/Logo";
 import PasswordIcon from "../../assets/PasswordIcon";
+import { registerUser } from "../../redux/reducers/auth";
 
 export default function SignIn() {
+  const dispatch= useDispatch()
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(email, password);
+  }
+
+  useEffect(()=> {
+    dispatch(registerUser());
+  },[])
+
   return (
     <div className="">
       <div className="flex justify-between">
@@ -18,16 +32,17 @@ export default function SignIn() {
         </div>
         <div className="mr-16">
           <label
-            for="countries"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            htmlFor="languages"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
             Select an option
           </label>
           <select
             id="languages"
-            class="bg-slate-100 border-slate-100 text-slate-500 text-sm rounded-lg focus:border-blue-500 block w-[130px] p-4  placeholder-slate-500 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            
+            className="bg-slate-100 border-slate-100 text-slate-500 text-sm rounded-lg focus:border-blue-500 block w-[130px] p-4  placeholder-slate-500 dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
-            <option selected>English (UK)</option>
+            <option defaultValue="English">English (UK)</option>
             <option value="US">Bengali</option>
           </select>
         </div>
@@ -60,67 +75,76 @@ export default function SignIn() {
               </button>
             </div>
           </div>
-          <div class="inline-flex items-center justify-center w-full mt-4">
-            <hr class="w-full h-[1px] my-8 border-0 rounded bg-slate-200" />
-            <div class=" absolute px-4 -translate-x-1/2 left-1/2 bg-white text-xl font-medium text-left text-[#b0b7c3]">
+          <div className="inline-flex items-center justify-center w-full mt-4">
+            <hr className="w-full h-[1px] my-8 border-0 rounded bg-slate-200" />
+            <div className=" absolute px-4 -translate-x-1/2 left-1/2 bg-white text-xl font-medium text-left text-[#b0b7c3]">
               OR
             </div>
           </div>
           {/* input sections */}
-          <div className="flex flex-col">
-            <div class="relative mb-6">
-              <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                <EmailLogo />
+          <form onSubmit={handleSubmit}>
+            <div className="flex flex-col">
+              <div className="relative mb-6">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                  <EmailLogo />
+                </div>
+                <input
+                  type="text"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="placeholder:text-[#b0b7c3] text-base font-medium text-left text-[#b0b7c3]  focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-5 rounded-2xl bg-white border border-[#ff5630]"
+                  placeholder="Your Email"
+                  required
+                />
               </div>
-              <input
-                type="text"
-                className="placeholder:text-[#b0b7c3] text-base font-medium text-left text-[#b0b7c3]  focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-5 rounded-2xl bg-white border border-[#ff5630]"
-                placeholder="Your Email"
-              />
-            </div>
-            <div class="relative mb-6">
-              <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                <PasswordIcon />
+              <div className="relative mb-6">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                  <PasswordIcon />
+                </div>
+                <input
+                  type="text"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="placeholder:text-[#b0b7c3] text-base font-medium text-left text-[#b0b7c3] focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-5 rounded-2xl bg-white border border-[#f3f3f3]"
+                  placeholder="Password"
+                  required
+                />
+                {/* <VisibleLogo className="absolute" /> */}
               </div>
-              <input
-                type="text"
-                className="placeholder:text-[#b0b7c3] text-base font-medium text-left text-[#b0b7c3] focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-5 rounded-2xl bg-white border border-[#f3f3f3]"
-                placeholder="Password"
-              />
-              {/* <VisibleLogo className="absolute" /> */}
+
+              <div className="flex items-center mb-4 ">
+                <input
+                  disabled
+                  type="checkbox"
+                  value=""
+                  className="w-8 h-8 text-blue-600 bg-slate-200 border-slate-200 rounded-xl focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 "
+                />
+                <label
+                  htmlFor="disabled-checkbox"
+                  className="ml-2  text-base font-medium text-left text-[#b0b7c3] "
+                >
+                  Remember Me
+                </label>
+              </div>
+              <div className="mt-4">
+                <button className="w-full p-5 bg-blue-500 rounded-2xl">
+                  <p className=" font-medium text-center text-white">Sign In</p>
+                </button>
+              </div>
+              <div className="text-center mt-8">
+                <p>
+                  <span className=" text-base font-medium text-center text-[#b0b7c3]">
+                    Don't have an account yet?
+                  </span>{" "}
+                  <Link to="/signup">
+                    <span className=" text-base font-medium text-center text-[#377dff]">
+                      Sign Up
+                    </span>
+                  </Link>
+                </p>
+              </div>
             </div>
-            <div class="flex items-center mb-4 ">
-              <input
-                disabled
-                type="checkbox"
-                value=""
-                className="w-8 h-8 text-blue-600 bg-slate-200 border-slate-200 rounded-xl focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 "
-              />
-              <label
-                for="disabled-checkbox"
-                className="ml-2  text-base font-medium text-left text-[#b0b7c3] "
-              >
-                Remember Me
-              </label>
-            </div>
-            <div className="mt-4">
-              <button className="w-full p-5 bg-blue-500 rounded-2xl">
-                <p className=" font-medium text-center text-white">Sign In</p>
-              </button>
-            </div>
-            <div className="text-center mt-8">
-              <p>
-                <span className=" text-base font-medium text-center text-[#b0b7c3]">
-                  Don't have an account yet?
-                </span>{" "}
-                <Link to="/signup">
-                  <span className=" text-base font-medium text-center text-[#377dff]">
-                    Sign Up
-                  </span>
-                </Link>
-              </p>
-            </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>

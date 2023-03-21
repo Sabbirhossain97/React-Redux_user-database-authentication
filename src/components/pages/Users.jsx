@@ -10,7 +10,16 @@ import SingleArrow2 from "../../assets/SingleArrow2";
 import DoubleArrow2 from "../../assets/DoubleArrow2";
 import SalesLogo from "../../assets/SalesLogo";
 import OptionsLogo from "../../assets/OptionsLogo";
+import axios from "axios";
+
 export default function Users() {
+// const response = axios
+//   .post("http://localhost:3000/users/register", {
+//     email: "sabbirhossainbd199@gmail.com",
+//     password: "1234",
+//   })
+//   .then((res) => console.log(res.data));
+//       console.log(response)      
   return (
     <div>
       <div className="w-full min-h-screen bg-white flex flex-row">

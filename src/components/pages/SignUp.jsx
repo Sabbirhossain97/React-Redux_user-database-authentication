@@ -8,7 +8,6 @@ import AppleLogo from "../../assets/AppleLogo";
 import PasswordIcon from "../../assets/PasswordIcon";
 export default function SignUp() {
   return (
-  
     <div className="">
       <div className="flex justify-between">
         <div className="flex flex-row text-3xl mt-8 ml-16">
@@ -124,7 +123,7 @@ export default function SignUp() {
             </div>
             <div className="mt-4">
               <button className="w-full p-5 bg-blue-500 rounded-2xl">
-                <p className=" font-medium text-center text-white">Sign In</p>
+                <p className=" font-medium text-center text-white">Sign Up</p>
               </button>
             </div>
             <div className="text-center mt-8">
