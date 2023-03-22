@@ -12,6 +12,7 @@ import { registerUser } from "../../redux/reducers/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../Spinner";
+import Notification from "../Notification";
 
 export default function SignUp() {
   let navigate = useNavigate();
@@ -41,6 +42,7 @@ export default function SignUp() {
       <Spinner />
     ) : (
       <div className="relative">
+        <Notification/>
         <div className="flex justify-between">
           <div className="flex flex-row text-3xl mt-8 ml-16">
             <Logo />

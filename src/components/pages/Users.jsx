@@ -5,13 +5,11 @@ import SearchLogo from "../../assets/SearchLogo";
 import UsersLogo from "../../assets/UsersLogo";
 import Notification from "../../assets/Notification";
 import DoubleArrow1 from "../../assets/DoubleArrow1";
-import SingleArrow1 from "../../assets/SingleArrow1";
-import SingleArrow2 from "../../assets/SingleArrow2";
 import DoubleArrow2 from "../../assets/DoubleArrow2";
 import SalesLogo from "../../assets/SalesLogo";
 import OptionsLogo from "../../assets/OptionsLogo";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../redux/reducers/auth";
 
@@ -20,8 +18,11 @@ export default function Users() {
   const dispatch = useDispatch();
   const [currentUser, setCurrentUser] = useState(null);
   const [signOut, setSignOut] = useState(false);
+  const [page, setPage] = useState(1);
+  const totalPage = 4;
+  let pageArr = [];
   const [loggedInUserId] = useSelector((state) => state.user.loggedInUser);
-
+  const location = useLocation();
   const getCurrentUser = async () => {
     const response = await axios.get(
       `https://reqres.in/api/users/${loggedInUserId.id}`
@@ -31,7 +32,9 @@ export default function Users() {
   };
 
   const getApiData = async () => {
-    const response = await axios.get(`https://reqres.in/api/users?per_page=3`);
+    const response = await axios.get(
+      `https://reqres.in/api/users?page=${page}&per_page=3`
+    );
     setUsersList(response.data.data);
     return response.data.data;
   };
@@ -42,11 +45,19 @@ export default function Users() {
 
   useEffect(() => {
     getApiData();
-  }, []);
+  }, [page]);
 
   useEffect(() => {
     getCurrentUser();
   }, []);
+
+  for (let i = 1; i <= totalPage; i++) {
+    pageArr.push(i);
+  }
+
+  const handlePage = (key) => {
+    setPage(key);
+  };
 
   return (
     <div>
@@ -73,13 +84,19 @@ export default function Users() {
                     </p>
                   </div>
                 </Link>
-                <div className="px-5 py-5 flex flex-row hover:bg-gray-200 rounded-lg cursor-pointer">
+                <div
+                  className={`${
+                    location.pathname === "/users"
+                      ? "bg-gray-200 px-5 py-5 flex flex-row hover:bg-gray-200 rounded-lg cursor-pointer mt-2"
+                      : "px-5 py-5 flex flex-row hover:bg-gray-200 rounded-lg cursor-pointer"
+                  }`}
+                >
                   <UsersLogo />{" "}
                   <p className="ml-4 text-sm font-medium text-left text-[#a7afbc]">
                     Users
                   </p>
                 </div>
-                <div className="px-5 py-5 flex flex-row hover:bg-gray-200 rounded-lg cursor-pointer">
+                <div className="mt-2 px-5 py-5 flex flex-row hover:bg-gray-200 rounded-lg cursor-pointer">
                   <SalesLogo />
                   <p className="ml-4 text-sm font-medium text-left text-[#a7afbc]">
                     Sales
@@ -172,41 +189,35 @@ export default function Users() {
             </div>
           </div>
           <div className="absolute bottom-16 ml-16 flex justify-start items-start gap-[5px]">
-            <div className="flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-8 w-8 relative gap-2.5 p-2.5 rounded-lg bg-white border border-[#f1f1f1]">
-              <DoubleArrow1 />
+            <div
+              onClick={() => setPage(1)}
+              className="cursor-pointer flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-8 w-8 relative gap-2.5 p-2.5 rounded-lg bg-white border border-[#f1f1f1] hover:bg-[#2f80ed] hover:text-white"
+            >
+              <span>
+                <DoubleArrow1 />
+              </span>
             </div>
-            <div className="flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-8 w-8 relative gap-2.5 p-2.5 rounded-lg bg-white border border-[#f1f1f1]">
-              <SingleArrow1 />
-            </div>
-            <div className="flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-8 w-8 relative gap-2.5 p-2.5 rounded-lg bg-[#2f80ed]">
-              <p className="flex-grow-0 flex-shrink-0 text-[13px] font-semibold text-left text-white">
-                1
-              </p>
-            </div>
-            <div className="flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-8 w-8 relative gap-2.5 p-2.5 rounded-lg bg-white border border-[#f1f1f1]">
-              <p className="flex-grow-0 flex-shrink-0 text-[13px] font-semibold text-left text-[#333]">
-                2
-              </p>
-            </div>
-            <div className="flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-8 w-8 relative gap-2.5 p-2.5 rounded-lg bg-white border border-[#f1f1f1]">
-              <p className="flex-grow-0 flex-shrink-0 text-[13px] font-semibold text-left text-[#333]">
-                3
-              </p>
-            </div>
-            <div className="flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-8 w-8 relative gap-2.5 p-2.5 rounded-lg bg-white">
-              <p className="flex-grow-0 flex-shrink-0 text-[13px] font-semibold text-left text-[#333]">
-                ...
-              </p>
-            </div>
-            <div className="flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-8 w-8 relative gap-2.5 p-2.5 rounded-lg bg-white border border-[#f1f1f1]">
-              <p className="flex-grow-0 flex-shrink-0 text-[13px] font-semibold text-left text-[#333]">
-                10
-              </p>
-            </div>
-            <div className="flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-8 w-8 relative gap-2.5 p-2.5 rounded-lg bg-white border border-[#f1f1f1]">
-              <SingleArrow2 />
-            </div>
-            <div className="flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-8 w-8 relative gap-2.5 p-2.5 rounded-lg bg-white border border-[#f1f1f1]">
+
+            {pageArr.map((item, key) => (
+              <div
+                key={key}
+                onClick={() => handlePage(key + 1)}
+                className={`${
+                  page === item
+                    ? "bg-[#2f80ed] cursor-pointer hover:text-white text-white flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-8 w-8 relative gap-2.5 p-2.5 rounded-lg hover:bg-[#2f80ed] border border-[#f1f1f1]"
+                    : "cursor-pointer hover:text-white flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-8 w-8 relative gap-2.5 p-2.5 rounded-lg hover:bg-[#2f80ed] border border-[#f1f1f1]"
+                }`}
+              >
+                <p className="flex-grow-0 flex-shrink-0 text-[13px] font-semibold text-left ">
+                  {item}
+                </p>
+              </div>
+            ))}
+
+            <div
+              onClick={() => setPage(totalPage)}
+              className="cursor-pointer hover:bg-[#2f80ed] flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-8 w-8 relative gap-2.5 p-2.5 rounded-lg bg-white border border-[#f1f1f1]"
+            >
               <DoubleArrow2 />
             </div>
           </div>

@@ -58,8 +58,8 @@ const authReducer = createSlice({
         state.message = payload.error;
       } else {
         if (state.userDetails.some((item) => item.id === payload.id)) {
-          alert("User Already Registered !");
           state.isRegistered = false;
+          state.message = "User Already Registered !";
           return;
         } else {
           state.userDetails = [
@@ -69,7 +69,8 @@ const authReducer = createSlice({
               token: payload.token,
             },
           ];
-          alert("User Registered Successfully!");
+
+          state.message = "User Registered Successfully!";
           state.isRegistered = true;
         }
       }
@@ -88,10 +89,8 @@ const authReducer = createSlice({
       if (payload.hasOwnProperty("error")) {
         state.message = payload.error;
         state.isAuthenticated = false;
-        alert(payload.error);
       } else {
         if (state.userDetails.some((item) => item.token === payload.token)) {
-          alert("Success!");
           state.message = "Successfully Logged In!";
           state.isAuthenticated = true;
           state.loggedInUser = [
@@ -102,7 +101,6 @@ const authReducer = createSlice({
             },
           ];
         } else {
-          alert("User not found! please sign up!");
           state.message = "User not found! please sign up!";
           state.isAuthenticated = false;
         }
