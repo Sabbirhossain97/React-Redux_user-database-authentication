@@ -11,7 +11,7 @@ import { MdVisibilityOff } from "react-icons/md";
 import { registerUser } from "../../redux/reducers/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Spinner from "../Spinner"
+import Spinner from "../Spinner";
 import Notification from "../Notification";
 import { changeRoute } from "../../redux/reducers/auth";
 
@@ -19,7 +19,7 @@ export default function SignUp() {
   let navigate = useNavigate();
   const isRegistered = useSelector((state) => state.user.isRegistered);
   let isLoading = useSelector((state) => state.user.loading);
-  
+
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -38,9 +38,11 @@ export default function SignUp() {
     }
   }, [isRegistered]);
 
-  return isLoading ? <Spinner/> : (
+  return isLoading ? (
+    <Spinner />
+  ) : (
     <div className="relative">
-      <Notification/>
+      <Notification />
       <div className="flex justify-between">
         <div className="flex flex-row text-3xl mt-8 ml-16">
           <Logo />
@@ -49,15 +51,9 @@ export default function SignUp() {
           </p>
         </div>
         <div className="mr-16">
-          <label
-            htmlFor="languages"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Select an option
-          </label>
           <select
             id="languages"
-            className="bg-slate-100 border-slate-100 text-slate-500 text-sm rounded-lg focus:border-blue-500 block w-[130px] p-4  placeholder-slate-500 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="mt-8 bg-slate-100 border-slate-100 text-slate-500 text-sm rounded-lg focus:border-blue-500 block w-[130px] p-4  placeholder-slate-500 dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
             <option defaultValue="English">English (UK)</option>
             <option value="US">Bengali</option>
@@ -175,7 +171,7 @@ export default function SignUp() {
                   <span className=" text-base font-medium text-center text-[#b0b7c3]">
                     Already have an account?
                   </span>{" "}
-                  <Link to="/" onClick={()=>dispatch(changeRoute())}>
+                  <Link to="/" onClick={() => dispatch(changeRoute())}>
                     <span className=" text-base font-medium text-center text-[#377dff]">
                       Sign In
                     </span>

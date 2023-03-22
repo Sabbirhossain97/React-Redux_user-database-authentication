@@ -61,7 +61,7 @@ export default function Users() {
 
   return (
     <div>
-      <div className="w-full max-h-screen bg-white sm:flex sm:flex-col md:flex md:flex-row ">
+      <div className="w-full h-screen bg-white sm:flex sm:flex-col md:flex md:flex-row ">
         {/* section 1 */}
         <div className="md:w-1/4 sm:w-full  ">
           <div className="flex flex-col justify-center items-center  ">
@@ -109,7 +109,7 @@ export default function Users() {
         </div>
         <div className="w-[1px] bg-gray-200"></div>
         {/* section 2 */}
-        <div className="relative w-full max-h-screen  ">
+        <div className="relative w-full  ">
           <div className="relative flex flex-row h-32 justify-between">
             <div className="relative sm:w-3/4 md:w-2/5 ml-16 h-16 mt-8">
               <input
@@ -139,7 +139,7 @@ export default function Users() {
               )}
             </div>
           </div>
-          <div className=" border-gray-200 border-l-[1px] relative h-screen sm:overflow-auto md:overflow-hidden">
+          <div className=" border-gray-200 border-l-[1px] relative  sm:overflow-auto md:overflow-hidden">
             <div className="relative md:ml-16 sm:ml-0 ">
               <p className=" text-[23px] font-semibold text-center md:text-left text-[#323b4b]">
                 Users List
@@ -190,7 +190,7 @@ export default function Users() {
             </div>
           </div>
           {/* pagination */}
-          <div className="absolute bottom-16 ml-16 flex justify-start items-start gap-[5px]">
+          <div className="sm:mt-8 md:mt-16 ml-16 flex justify-start items-start gap-[5px]">
             <div
               onClick={() => setPage(1)}
               className="cursor-pointer flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 h-8 w-8 relative gap-2.5 p-2.5 rounded-lg bg-white border border-[#f1f1f1] hover:bg-[#2f80ed] hover:text-white"

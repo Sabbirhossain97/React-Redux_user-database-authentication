@@ -49,15 +49,10 @@ export default function SignIn() {
           </p>
         </div>
         <div className="mr-16">
-          <label
-            htmlFor="languages"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Select an option
-          </label>
+          
           <select
             id="languages"
-            className="bg-slate-100 border-slate-100 text-slate-500 text-sm rounded-lg focus:border-blue-500 block w-[130px] p-4  placeholder-slate-500 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="mt-8 bg-slate-100 border-slate-100 text-slate-500 text-sm rounded-lg focus:border-blue-500 block w-[130px] p-4  placeholder-slate-500 dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
             <option defaultValue="English">English (UK)</option>
             <option value="US">Bengali</option>
