@@ -61,16 +61,17 @@ export default function Users() {
 
   return (
     <div>
-      <div className="w-full max-h-screen bg-white flex flex-row ">
+      <div className="w-full max-h-screen bg-white sm:flex sm:flex-col md:flex md:flex-row ">
         {/* section 1 */}
-        <div className="w-1/4  ">
-          <div className="flex flex-col justify-center items-center ">
+        <div className="md:w-1/4 sm:w-full  ">
+          <div className="flex flex-col justify-center items-center  ">
             <div className="ml-10 mt-10 flex flex-row ">
               <Logo />
               <p className="mt-1 ml-2 w-[98.06px] h-[36.82px]  text-[28px] font-bold text-left text-[#4e5d78]">
                 Stack
               </p>
             </div>
+
             <div className="px-5 mt-10">
               <h2 className="px-5 font-medium text-left text-[#b0b7c3]">
                 PAGES
@@ -110,7 +111,7 @@ export default function Users() {
         {/* section 2 */}
         <div className="relative w-full max-h-screen  ">
           <div className="relative flex flex-row h-32 justify-between">
-            <div className="relative w-2/5 ml-16 h-16 mt-8">
+            <div className="relative sm:w-3/4 md:w-2/5 ml-16 h-16 mt-8">
               <input
                 type="text"
                 className=" w-full placeholder:text-[#b0b7c3] bg-[#f0f5fa] text-base font-medium text-left text-[#b0b7c3] focus:ring-blue-500 focus:border-blue-500 block pl-5 p-4 rounded-2xl  border border-[#f3f3f3]"
@@ -119,7 +120,7 @@ export default function Users() {
               <SearchLogo />
             </div>
             <div className="mr-28 flex flex-row items-center justify-center">
-              <Notification />
+              {/* <Notification /> */}
               <img
                 alt="error"
                 src={currentUser?.avatar}
@@ -131,16 +132,16 @@ export default function Users() {
                   onClick={handleSignOut}
                   className="cursor-pointer hover:bg-gray-300/50 font-semibold text-[#4e5d78] p-4 flex justify-center items-center text-center rounded-md absolute bottom-2 right-20 w-[100px] h-[20px] bg-gray-100"
                 >
-                  <h3>Sign Out</h3>
+                  <h3 className="text-sm">Sign Out</h3>
                 </div>
               ) : (
                 ""
               )}
             </div>
           </div>
-          <div className="relative h-screen ">
-            <div className="relative ml-16 ">
-              <p className="text-[23px] font-semibold text-left text-[#323b4b]">
+          <div className=" border-gray-200 border-l-[1px] relative h-screen sm:overflow-auto md:overflow-hidden">
+            <div className="relative md:ml-16 sm:ml-0 ">
+              <p className=" text-[23px] font-semibold text-center md:text-left text-[#323b4b]">
                 Users List
               </p>
               <div className="flex flex-row py-5 rounded-xl bg-[#fafbfc] mt-8 w-11/12">
@@ -162,7 +163,7 @@ export default function Users() {
                 ? usersList.map((item, key) => (
                     <div
                       key={key}
-                      className=" flex flex-row items-center py-2 rounded-xl w-11/12"
+                      className=" flex flex-row items-center py-2 rounded-xl md:w-11/12 sm:w-full "
                     >
                       <div className="ml-16 w-1/12  text-sm font-semibold text-left text-[#4e5d78]">
                         {item.id}
@@ -188,6 +189,7 @@ export default function Users() {
                 : ""}
             </div>
           </div>
+          {/* pagination */}
           <div className="absolute bottom-16 ml-16 flex justify-start items-start gap-[5px]">
             <div
               onClick={() => setPage(1)}

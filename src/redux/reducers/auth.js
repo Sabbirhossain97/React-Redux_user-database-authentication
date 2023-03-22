@@ -19,6 +19,7 @@ const initialState = {
   isAuthenticated: false,
   loading: false,
   message: "",
+
 };
 
 export const registerUser = createAsyncThunk("users/signup", async (data) => {
@@ -40,14 +41,16 @@ export const loginUser = createAsyncThunk("users/login", async (data) => {
 });
 
 export const logOut = createAction("RESET_ALL");
-
+export const changeRoute = createAction("REFRESH_MESSAGE")
 const authReducer = createSlice({
   name: "authuser",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(logOut, () => initialState);
-
+    builder.addCase(changeRoute, (state)=> {
+      state.message=""
+    } );
     builder.addCase(registerUser.pending, (state) => {
       state.loading = true;
     });
