@@ -12,19 +12,42 @@ import SalesLogo from "../../assets/SalesLogo";
 import OptionsLogo from "../../assets/OptionsLogo";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logOut } from "../../redux/reducers/auth";
 
 export default function Users() {
-  const [itemsPerPage] = useState(3);
-  const getUserData = async () => {
+  const [usersList, setUsersList] = useState(null);
+  const dispatch = useDispatch();
+  const [currentUser, setCurrentUser] = useState(null);
+  const [signOut, setSignOut] = useState(false);
+  const [loggedInUserId] = useSelector((state) => state.user.loggedInUser);
+
+  const getCurrentUser = async () => {
     const response = await axios.get(
-      `https://reqres.in/api/users?per_page=${itemsPerPage}`
+      `https://reqres.in/api/users/${loggedInUserId.id}`
     );
-    console.log(response.data.data)
+    setCurrentUser(response.data.data);
     return response.data.data;
   };
-  useEffect(()=> {
-    getUserData();
-  },[])
+
+  const getApiData = async () => {
+    const response = await axios.get(`https://reqres.in/api/users?per_page=3`);
+    setUsersList(response.data.data);
+    return response.data.data;
+  };
+
+  const handleSignOut = () => {
+    dispatch(logOut());
+  };
+
+  useEffect(() => {
+    getApiData();
+  }, []);
+
+  useEffect(() => {
+    getCurrentUser();
+  }, []);
+
   return (
     <div>
       <div className="w-full max-h-screen bg-white flex flex-row ">
@@ -69,7 +92,7 @@ export default function Users() {
         <div className="w-[1px] bg-gray-200"></div>
         {/* section 2 */}
         <div className="relative w-full max-h-screen  ">
-          <div className="flex flex-row h-32 justify-between">
+          <div className="relative flex flex-row h-32 justify-between">
             <div className="relative w-2/5 ml-16 h-16 mt-8">
               <input
                 type="text"
@@ -82,9 +105,20 @@ export default function Users() {
               <Notification />
               <img
                 alt="error"
-                src="image-1.png"
-                className="ml-10 w-[47px] h-[47px] object-cover"
+                src={currentUser?.avatar}
+                onClick={() => setSignOut(!signOut)}
+                className="cursor-pointer ml-10 w-[47px] h-[47px] object-cover rounded-[15px]"
               />
+              {signOut ? (
+                <div
+                  onClick={handleSignOut}
+                  className="cursor-pointer hover:bg-gray-300/50 font-semibold text-[#4e5d78] p-4 flex justify-center items-center text-center rounded-md absolute bottom-2 right-20 w-[100px] h-[20px] bg-gray-100"
+                >
+                  <h3>Sign Out</h3>
+                </div>
+              ) : (
+                ""
+              )}
             </div>
           </div>
           <div className="relative h-screen ">
@@ -107,27 +141,34 @@ export default function Users() {
                 </p>
               </div>
               {/* users list */}
-              <div className=" flex flex-row items-center py-2 rounded-xl w-11/12">
-                <div className="ml-16 w-1/12  text-sm font-semibold text-left text-[#4e5d78]">
-                  1
-                </div>
-                <div className="w-2/5 flex flex-row items-center text-sm font-semibold text-left text-[#4e5d78]">
-                  <img
-                    alt="error"
-                    src="image-1.png"
-                    className="border border-gray-200 w-[60px] h-[60px]  rounded-[15px] object-cover"
-                  />
-                  <p className="ml-4 text-sm font-semibold text-left text-[#4e5d78]">
-                    Michael Lawson
-                  </p>
-                </div>
-                <div className="w-2/5  text-sm font-semibold text-left text-[#4e5d78]">
-                  michael.lawson@reqres.in
-                </div>
-                <div className="w-1/12  text-sm font-semibold text-left text-[#4e5d78]">
-                  <OptionsLogo />
-                </div>
-              </div>
+              {usersList
+                ? usersList.map((item, key) => (
+                    <div
+                      key={key}
+                      className=" flex flex-row items-center py-2 rounded-xl w-11/12"
+                    >
+                      <div className="ml-16 w-1/12  text-sm font-semibold text-left text-[#4e5d78]">
+                        {item.id}
+                      </div>
+                      <div className="w-2/5 flex flex-row items-center text-sm font-semibold text-left text-[#4e5d78]">
+                        <img
+                          alt="error"
+                          src={item.avatar}
+                          className="border border-gray-200 w-[60px] h-[60px]  rounded-[15px] object-cover"
+                        />
+                        <p className="ml-4 text-sm font-semibold text-left text-[#4e5d78]">
+                          {item.first_name} {item.last_name}
+                        </p>
+                      </div>
+                      <div className="w-2/5  text-sm font-semibold text-left text-[#4e5d78]">
+                        {item.email}
+                      </div>
+                      <div className="w-1/12  text-sm font-semibold text-left text-[#4e5d78]">
+                        <OptionsLogo />
+                      </div>
+                    </div>
+                  ))
+                : ""}
             </div>
           </div>
           <div className="absolute bottom-16 ml-16 flex justify-start items-start gap-[5px]">
